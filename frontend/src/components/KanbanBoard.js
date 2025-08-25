@@ -95,9 +95,31 @@ const KanbanBoard = () => {
     return new Date(dueDate) < new Date();
   }, []);
 
-  // Format due date
-  const formatDueDate = useCallback((dueDate) => {
+  // Get completion delay for completed tasks
+  const getCompletionDelay = useCallback((dueDate, completedAt) => {
+    if (!dueDate || !completedAt) return null;
+    const due = new Date(dueDate);
+    const completed = new Date(completedAt);
+    const diffTime = completed - due;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  }, []);
+
+  // Format due date with completion info
+  const formatDueDate = useCallback((dueDate, task) => {
     if (!dueDate) return null;
+    
+    if (task.status === 'completed') {
+      const delay = getCompletionDelay(dueDate, task.updatedAt);
+      if (delay > 0) {
+        return `Completed ${delay} day${delay > 1 ? 's' : ''} late`;
+      } else if (delay === 0) {
+        return 'Completed on time';
+      } else {
+        return `Completed ${Math.abs(delay)} day${Math.abs(delay) > 1 ? 's' : ''} early`;
+      }
+    }
+    
     const date = new Date(dueDate);
     const now = new Date();
     const diffTime = date - now;
@@ -108,7 +130,7 @@ const KanbanBoard = () => {
     if (diffDays === 1) return 'Due tomorrow';
     if (diffDays <= 7) return `Due in ${diffDays}d`;
     return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-  }, []);
+  }, [getCompletionDelay]);
 
   // Column configurations
   const columnConfig = {
@@ -191,7 +213,7 @@ const KanbanBoard = () => {
                   {columnTasks.map((task, index) => {
                     const priorityInfo = getPriorityInfo(task.priority);
                     const overdue = isOverdue(task.dueDate);
-                    const dueDateText = formatDueDate(task.dueDate);
+                    const dueDateText = formatDueDate(task.dueDate, task);
                     
                     return (
                       <motion.div
@@ -255,23 +277,23 @@ const KanbanBoard = () => {
                             </div>
                           )}
 
-                          {/* Due date */}
-                          {dueDateText && (
-                            <div className={`due-date ${overdue ? 'overdue' : ''}`}>
-                              <span className="due-icon">📅</span>
-                              <span className="due-text">{dueDateText}</span>
-                              {overdue && (
-                                <motion.span
-                                  className="overdue-badge"
-                                  initial={{ scale: 0 }}
-                                  animate={{ scale: 1 }}
-                                  transition={{ type: "spring" }}
-                                >
-                                  Overdue
-                                </motion.span>
-                              )}
-                            </div>
-                          )}
+                                                  {/* Due date */}
+                        {dueDateText && (
+                          <div className={`due-date ${overdue && task.status !== 'completed' ? 'overdue' : ''}`}>
+                            <span className="due-icon">📅</span>
+                            <span className="due-text">{dueDateText}</span>
+                            {overdue && task.status !== 'completed' && (
+                              <motion.span
+                                className="overdue-badge"
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                transition={{ type: "spring" }}
+                              >
+                                Overdue
+                              </motion.span>
+                            )}
+                          </div>
+                        )}
                         </div>
 
                         {/* Action buttons */}

@@ -347,6 +347,26 @@
   border: 1px solid #fecaca;
 }
 
+.completion-info {
+  padding: 0.25rem 0.5rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid;
+}
+
+.completion-info.overdue {
+  background: #fef2f2;
+  color: #ef4444;
+  border-color: #fecaca;
+}
+
+.completion-info.completed {
+  background: #f0fdf4;
+  color: #059669;
+  border-color: #bbf7d0;
+}
+
 .task-tags {
   display: flex;
   gap: 0.5rem;

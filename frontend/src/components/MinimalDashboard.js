@@ -22,7 +22,7 @@ const MinimalDashboard = () => {
       const completed = tasks.filter(task => task.status === 'completed').length;
       const inProgress = tasks.filter(task => task.status === 'in_progress').length;
       const overdue = tasks.filter(task => {
-        if (!task.dueDate) return false;
+        if (!task.dueDate || task.status === 'completed') return false;
         return new Date(task.dueDate) < new Date();
       }).length;
 
@@ -64,6 +64,31 @@ const MinimalDashboard = () => {
   const isOverdue = (dueDate) => {
     if (!dueDate) return false;
     return new Date(dueDate) < new Date();
+  };
+
+  const getCompletionDelay = (dueDate, completedAt) => {
+    if (!dueDate || !completedAt) return null;
+    const due = new Date(dueDate);
+    const completed = new Date(completedAt);
+    const diffTime = completed - due;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  };
+
+  const formatCompletionInfo = (task) => {
+    if (task.status === 'completed' && task.dueDate) {
+      const delay = getCompletionDelay(task.dueDate, task.updatedAt);
+      if (delay > 0) {
+        return `Completed ${delay} day${delay > 1 ? 's' : ''} after due date`;
+      } else if (delay === 0) {
+        return 'Completed on due date';
+      } else {
+        return `Completed ${Math.abs(delay)} day${Math.abs(delay) > 1 ? 's' : ''} early`;
+      }
+    } else if (task.dueDate && isOverdue(task.dueDate)) {
+      return `Overdue by ${Math.ceil((new Date() - new Date(task.dueDate)) / (1000 * 60 * 60 * 24))} day${Math.ceil((new Date() - new Date(task.dueDate)) / (1000 * 60 * 60 * 24)) > 1 ? 's' : ''}`;
+    }
+    return null;
   };
 
   const handleTaskClick = (taskId) => {
@@ -232,9 +257,18 @@ const MinimalDashboard = () => {
                     
                     <div className="task-footer">
                       {task.dueDate && (
-                        <div className={`due-date ${isOverdue(task.dueDate) ? 'overdue' : ''}`}>
+                        <div className="due-date">
                           📅 {new Date(task.dueDate).toLocaleDateString()}
-                          {isOverdue(task.dueDate) && <span className="overdue-badge">Overdue</span>}
+                          {formatCompletionInfo(task) && (
+                            <motion.span
+                              className={`completion-info ${task.status === 'completed' ? 'completed' : 'overdue'}`}
+                              initial={{ scale: 0 }}
+                              animate={{ scale: 1 }}
+                              transition={{ type: "spring" }}
+                            >
+                              {formatCompletionInfo(task)}
+                            </motion.span>
+                          )}
                         </div>
                       )}
                       
