@@ -314,6 +314,16 @@
   border-color: #d97706;
 }
 
+.action-button.view-task {
+  border-color: #3b82f6;
+  color: #3b82f6;
+}
+
+.action-button.view-task:hover {
+  background-color: #eff6ff;
+  border-color: #2563eb;
+}
+
 /* Responsive Design */
 @media (max-width: 1200px) {
   .kanban-columns {

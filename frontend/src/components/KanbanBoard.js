@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { useTaskContext } from '../context/TaskContext';
 import './KanbanBoard.css';
 
 const KanbanBoard = () => {
   const { tasks, loading, updateTask } = useTaskContext();
+  const navigate = useNavigate();
   
   // Stable column structure
   const [columns, setColumns] = useState({
@@ -67,6 +69,11 @@ const KanbanBoard = () => {
       console.error('Error updating task status:', error);
     }
   }, [updateTask]);
+
+  // Handle task click to view details
+  const handleTaskClick = useCallback((taskId) => {
+    navigate(`/tasks/${taskId}`);
+  }, [navigate]);
 
   // Get priority color and icon
   const getPriorityInfo = useCallback((priority) => {
@@ -269,6 +276,18 @@ const KanbanBoard = () => {
 
                         {/* Action buttons */}
                         <div className="task-actions">
+                          {/* View Task Button */}
+                          <motion.button
+                            className="action-button view-task"
+                            onClick={() => handleTaskClick(task.id)}
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.95 }}
+                            title="View Task Details"
+                          >
+                            👁️
+                          </motion.button>
+                          
+                          {/* Status Change Buttons */}
                           <motion.button
                             className="action-button next-status"
                             onClick={() => handleStatusChange(task.id, config.nextStatus)}
