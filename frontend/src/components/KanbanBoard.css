@@ -1,0 +1,437 @@
+/* Kanban Board - Playful Theme with Minimal Design */
+.kanban-board {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 2rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Header */
+.kanban-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  color: white;
+}
+
+.kanban-header h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(45deg, #fff, #f0f9ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.kanban-header p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  font-weight: 300;
+}
+
+/* Loading State */
+.kanban-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+  color: white;
+}
+
+.kanban-loading .loading-spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid white;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+
+.kanban-loading p {
+  font-size: 1.1rem;
+  opacity: 0.8;
+}
+
+/* Columns Layout */
+.kanban-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Individual Column */
+.kanban-column {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Column Header */
+.column-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.column-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.column-icon {
+  font-size: 1.5rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.column-title h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+}
+
+.task-count {
+  background: rgba(255, 255, 255, 0.8);
+  color: #6b7280;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Column Content */
+.column-content {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  min-height: 400px;
+}
+
+.column-content.dragging-over {
+  background: rgba(59, 130, 246, 0.05);
+  border-radius: 16px;
+}
+
+/* Task Cards */
+.task-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.task-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.task-card:hover::before {
+  opacity: 1;
+}
+
+.task-card.dragging {
+  transform: rotate(5deg);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  cursor: grabbing;
+}
+
+/* Priority Indicator */
+.priority-indicator {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.priority-icon {
+  font-size: 1rem;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+/* Task Content */
+.task-content {
+  padding-right: 2.5rem;
+}
+
+.task-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 0.75rem 0;
+  line-height: 1.4;
+}
+
+.task-description {
+  color: #6b7280;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Tags */
+.task-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.tag {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.tag-more {
+  background: #e5e7eb;
+  color: #6b7280;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* Due Date */
+.due-date {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.due-date.overdue {
+  color: #ef4444;
+}
+
+.due-icon {
+  font-size: 1rem;
+}
+
+.overdue-badge {
+  background: #fef2f2;
+  color: #ef4444;
+  padding: 0.25rem 0.5rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid #fecaca;
+}
+
+/* Completion Checkmark */
+.completion-checkmark {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  font-size: 1.5rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+/* Task Actions */
+.task-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  justify-content: flex-end;
+}
+
+.action-button {
+  background: none;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  min-height: 36px;
+}
+
+.action-button:hover {
+  border-color: #3b82f6;
+  background-color: #f8fafc;
+}
+
+.action-button.next-status {
+  border-color: #10b981;
+  color: #10b981;
+}
+
+.action-button.next-status:hover {
+  background-color: #f0fdf4;
+  border-color: #059669;
+}
+
+.action-button.prev-status {
+  border-color: #f59e0b;
+  color: #f59e0b;
+}
+
+.action-button.prev-status:hover {
+  background-color: #fffbeb;
+  border-color: #d97706;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .kanban-columns {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .kanban-board {
+    padding: 1rem;
+  }
+  
+  .kanban-header h1 {
+    font-size: 2.5rem;
+  }
+  
+  .kanban-columns {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .kanban-column {
+    min-height: 500px;
+  }
+  
+  .task-card {
+    padding: 1rem;
+  }
+  
+  .priority-indicator {
+    width: 28px;
+    height: 28px;
+    top: 0.75rem;
+    right: 0.75rem;
+  }
+  
+  .task-content {
+    padding-right: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .kanban-header h1 {
+    font-size: 2rem;
+  }
+  
+  .kanban-header p {
+    font-size: 1rem;
+  }
+  
+  .column-header {
+    padding: 1rem;
+  }
+  
+  .column-title h3 {
+    font-size: 1.1rem;
+  }
+  
+  .task-card {
+    padding: 0.75rem;
+  }
+  
+  .task-title {
+    font-size: 1rem;
+  }
+}
+
+/* Custom Scrollbar */
+.column-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.column-content::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+}
+
+.column-content::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.column-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Empty State */
+.column-content:empty::after {
+  content: 'Drop tasks here';
+  display: block;
+  text-align: center;
+  color: #9ca3af;
+  font-style: italic;
+  padding: 2rem;
+  border: 2px dashed #d1d5db;
+  border-radius: 12px;
+  margin: 1rem;
+}
+
+/* Hover Effects */
+.task-card:hover {
+  border-color: rgba(102, 126, 234, 0.3);
+}
+
+.column-header:hover {
+  background: rgba(255, 255, 255, 0.98);
+}
+
+/* Focus States */
+.task-card:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+}
+
+/* Animation Delays for Staggered Effects */
+.task-card:nth-child(1) { animation-delay: 0.1s; }
+.task-card:nth-child(2) { animation-delay: 0.2s; }
+.task-card:nth-child(3) { animation-delay: 0.3s; }
+.task-card:nth-child(4) { animation-delay: 0.4s; }
+.task-card:nth-child(5) { animation-delay: 0.5s; }

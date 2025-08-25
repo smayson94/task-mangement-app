@@ -1,0 +1,306 @@
+/* Statistics component styles */
+.statistics {
+  max-width: 100%;
+}
+
+.statistics-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.statistics-header h1 {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.statistics-header p {
+  font-size: 1.1rem;
+  color: #7f8c8d;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.statistics-tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #ecf0f1;
+}
+
+.tab-button {
+  background: none;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  color: #7f8c8d;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.tab-button:hover {
+  color: #3498db;
+}
+
+.tab-button.active {
+  color: #3498db;
+  border-bottom-color: #3498db;
+}
+
+.tab-content {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Overview tab */
+.overview-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.distribution-charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.chart-section {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.chart-title {
+  font-size: 1.2rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.chart-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.chart-label {
+  width: 80px;
+  font-size: 0.9rem;
+  color: #7f8c8d;
+}
+
+.chart-progress {
+  flex: 1;
+  height: 20px;
+  background: #ecf0f1;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 0 1rem;
+}
+
+.chart-fill {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.chart-fill.status-todo { background: #e74c3c; }
+.chart-fill.status-in-progress { background: #f39c12; }
+.chart-fill.status-completed { background: #27ae60; }
+.chart-fill.priority-low { background: #95a5a6; }
+.chart-fill.priority-medium { background: #3498db; }
+.chart-fill.priority-high { background: #e74c3c; }
+
+.chart-value {
+  width: 40px;
+  text-align: right;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+/* Overdue tab */
+.overdue-list {
+  margin-bottom: 2rem;
+}
+
+.overdue-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.overdue-count {
+  font-size: 1.2rem;
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+.overdue-tasks {
+  display: grid;
+  gap: 1rem;
+}
+
+.overdue-task {
+  background: #fff5f5;
+  border: 1px solid #fed7d7;
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.overdue-task-info h4 {
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.overdue-task-info p {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.overdue-days {
+  background: #e74c3c;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+/* Tags tab */
+.tag-stats {
+  margin-bottom: 2rem;
+}
+
+.tag-chart {
+  display: grid;
+  gap: 1rem;
+}
+
+.tag-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.tag-name {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.tag-count {
+  background: #3498db;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+/* Trends tab */
+.trend-chart {
+  margin-bottom: 2rem;
+}
+
+.trend-data {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.trend-item {
+  text-align: center;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.trend-date {
+  font-size: 0.9rem;
+  color: #7f8c8d;
+  margin-bottom: 0.5rem;
+}
+
+.trend-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .statistics-tabs {
+    flex-wrap: wrap;
+  }
+  
+  .tab-button {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .overview-stats {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+  
+  .distribution-charts {
+    grid-template-columns: 1fr;
+  }
+  
+  .overdue-task {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .overdue-days {
+    align-self: flex-end;
+  }
+}
+
+@media (max-width: 480px) {
+  .statistics-header h1 {
+    font-size: 2rem;
+  }
+  
+  .tab-content {
+    padding: 1rem;
+  }
+  
+  .overview-stats {
+    grid-template-columns: 1fr;
+  }
+}
