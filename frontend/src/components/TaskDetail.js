@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useTaskContext } from '../context/TaskContext';
 import './TaskDetail.css';
@@ -14,10 +14,10 @@ const TaskDetail = () => {
   // Load task data - because apparently we need to see the task
   useEffect(() => {
     loadTask();
-  }, [id]);
+  }, [id, loadTask]);
 
   // Load task from API - because apparently we need to get data
-  const loadTask = async () => {
+  const loadTask = useCallback(async () => {
     try {
       setLoading(true);
       const taskData = await getTaskById(id);
@@ -28,7 +28,7 @@ const TaskDetail = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [id, getTaskById, navigate]);
 
   // Handle task deletion - because apparently we need to remove things
   const handleDelete = async () => {

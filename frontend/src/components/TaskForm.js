@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useTaskContext } from '../context/TaskContext';
@@ -17,8 +17,7 @@ const TaskForm = () => {
     handleSubmit,
     formState: { errors },
     setValue,
-    watch,
-    reset
+    watch
   } = useForm({
     defaultValues: {
       title: '',
@@ -39,10 +38,10 @@ const TaskForm = () => {
       setIsEditing(true);
       loadTaskData();
     }
-  }, [id]);
+  }, [id, loadTaskData]);
 
   // Load task data from API - because apparently we need to get existing data
-  const loadTaskData = async () => {
+  const loadTaskData = useCallback(async () => {
     try {
       setLoading(true);
       const task = await getTaskById(id);
@@ -60,7 +59,7 @@ const TaskForm = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [id, getTaskById, setValue, navigate]);
 
   // Handle form submission - because apparently we need to save data
   const onSubmit = async (data) => {

@@ -87,7 +87,7 @@ const TaskList = () => {
     } else {
       console.log('TaskList: Filters unchanged, skipping update');
     }
-  }, [localFilters, updateFilters, filters, isInitialRender]);
+  }, [localFilters, updateFilters, isInitialRender]);
 
   // Handle filter changes - because apparently we need to update filters
   const handleFilterChange = (key, value) => {

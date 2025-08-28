@@ -5,7 +5,7 @@ import axios from 'axios';
 import './Dashboard.css';
 
 const Dashboard = () => {
-  const { tasks, loading } = useTaskContext();
+  const { loading } = useTaskContext();
   const [stats, setStats] = useState(null);
   const [recentTasks, setRecentTasks] = useState([]);
 

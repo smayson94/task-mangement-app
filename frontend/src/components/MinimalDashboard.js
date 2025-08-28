@@ -52,14 +52,7 @@ const MinimalDashboard = () => {
     }
   };
 
-  const getStatusIcon = (status) => {
-    switch (status) {
-      case 'completed': return '✅';
-      case 'in_progress': return '🚀';
-      case 'todo': return '📋';
-      default: return '📌';
-    }
-  };
+
 
   const isOverdue = (dueDate) => {
     if (!dueDate) return false;
