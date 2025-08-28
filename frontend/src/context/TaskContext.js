@@ -204,7 +204,7 @@ export const TaskProvider = ({ children }) => {
       console.error('Error fetching tasks:', error);
       toast.error('Failed to fetch tasks');
     }
-  }, [state.sortBy, state.sortOrder]);
+  }, [state.sortBy, state.sortOrder, apiCall]);
 
   // Create new task - because apparently we need to add things
   const createTask = useCallback(async (taskData) => {
