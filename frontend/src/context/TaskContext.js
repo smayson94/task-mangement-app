@@ -141,7 +141,7 @@ export const TaskProvider = ({ children }) => {
 
 
   // Helper function to make API calls - because apparently we need to handle HTTP requests
-  const apiCall = async (method, endpoint, data = null) => {
+  const apiCall = useCallback(async (method, endpoint, data = null) => {
     try {
       dispatch({ type: TASK_ACTIONS.SET_LOADING, payload: true });
       
@@ -166,7 +166,7 @@ export const TaskProvider = ({ children }) => {
     } finally {
       dispatch({ type: TASK_ACTIONS.SET_LOADING, payload: false });
     }
-  };
+  }, []);
 
   // Fetch tasks with filters and pagination - because apparently we need to get data
   const fetchTasks = useCallback(async (filters = {}, pagination = {}) => {
@@ -207,7 +207,7 @@ export const TaskProvider = ({ children }) => {
   }, [state.sortBy, state.sortOrder]);
 
   // Create new task - because apparently we need to add things
-  const createTask = async (taskData) => {
+  const createTask = useCallback(async (taskData) => {
     try {
       const newTask = await apiCall('POST', '/api/tasks', taskData);
       dispatch({ type: TASK_ACTIONS.ADD_TASK, payload: newTask });
@@ -218,10 +218,10 @@ export const TaskProvider = ({ children }) => {
       toast.error('Failed to create task');
       throw error;
     }
-  };
+  }, [apiCall]);
 
   // Update existing task - because apparently we need to change things
-  const updateTask = async (id, updateData) => {
+  const updateTask = useCallback(async (id, updateData) => {
     try {
       const updatedTask = await apiCall('PUT', `/api/tasks/${id}`, updateData);
       dispatch({ type: TASK_ACTIONS.UPDATE_TASK, payload: updatedTask });
@@ -232,10 +232,10 @@ export const TaskProvider = ({ children }) => {
       toast.error('Failed to update task');
       throw error;
     }
-  };
+  }, [apiCall]);
 
   // Delete task - because apparently we need to remove things
-  const deleteTask = async (id) => {
+  const deleteTask = useCallback(async (id) => {
     try {
       await apiCall('DELETE', `/api/tasks/${id}`);
       dispatch({ type: TASK_ACTIONS.DELETE_TASK, payload: id });
@@ -245,10 +245,10 @@ export const TaskProvider = ({ children }) => {
       toast.error('Failed to delete task');
       throw error;
     }
-  };
+  }, [apiCall]);
 
   // Get task by ID - because apparently we need to find specific things
-  const getTaskById = async (id) => {
+  const getTaskById = useCallback(async (id) => {
     try {
       const task = await apiCall('GET', `/api/tasks/${id}`);
       return task;
@@ -257,28 +257,28 @@ export const TaskProvider = ({ children }) => {
       toast.error('Failed to fetch task');
       throw error;
     }
-  };
+  }, [apiCall]);
 
   // Update filters - because apparently we need to filter things
-  const updateFilters = (newFilters) => {
+  const updateFilters = useCallback((newFilters) => {
     console.log('TaskContext: Updating filters:', newFilters);
     dispatch({ type: TASK_ACTIONS.SET_FILTERS, payload: newFilters });
-  };
+  }, []);
 
   // Update pagination - because apparently we need to paginate things
-  const updatePagination = (newPagination) => {
+  const updatePagination = useCallback((newPagination) => {
     dispatch({ type: TASK_ACTIONS.SET_PAGINATION, payload: newPagination });
-  };
+  }, []);
 
   // Update sorting - because apparently we need to sort things
-  const updateSort = (sortBy, sortOrder) => {
+  const updateSort = useCallback((sortBy, sortOrder) => {
     dispatch({ type: TASK_ACTIONS.SET_SORT, payload: { sortBy, sortOrder } });
-  };
+  }, []);
 
   // Clear error - because apparently we need to clear errors
-  const clearError = () => {
+  const clearError = useCallback(() => {
     dispatch({ type: TASK_ACTIONS.CLEAR_ERROR });
-  };
+  }, []);
     // Fetch tasks when filters, pagination, or sorting changes - guard against unnecessary repeats
     useEffect(() => {
       const fetchKey = JSON.stringify({
