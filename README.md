@@ -112,11 +112,12 @@ chmod +x deploy.sh
 3. Choose your repository
 4. Configure build settings:
    - **Root Directory**: Leave empty
-   - **Build Command**: `cd backend && npm install`
+   - **Build Command**: `cd backend && npm install` (or leave empty - Railway will auto-detect)
    - **Start Command**: `cd backend && npm start`
 5. Set environment variables:
    - `NODE_ENV=production`
    - `PORT=3000` (Railway will override this)
+6. **Important**: Railway will automatically detect this is a Node.js project and install dependencies
 
 #### 3. Deploy Frontend to Netlify (Recommended)
 1. Go to [Netlify.com](https://netlify.com) and sign up
