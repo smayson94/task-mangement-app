@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer, useEffect, useCallback, useState } from 'react';
+import React, { createContext, useContext, useReducer, useEffect, useCallback, useState, useMemo } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import API_BASE_URL from '../config/api';
@@ -129,6 +129,13 @@ const taskReducer = (state, action) => {
 export const TaskProvider = ({ children }) => {
   const [state, dispatch] = useReducer(taskReducer, initialState);
   const [hasInitialized, setHasInitialized] = useState(false);
+
+  // Stabilize pagination object to prevent infinite loops
+  const stablePagination = useMemo(() => ({
+    page: state.pagination.page,
+    limit: state.pagination.limit
+  }), [state.pagination.page, state.pagination.limit]);
+
 
 
 
@@ -271,17 +278,18 @@ export const TaskProvider = ({ children }) => {
   const clearError = () => {
     dispatch({ type: TASK_ACTIONS.CLEAR_ERROR });
   };
-  // Fetch tasks when filters, pagination, or sorting changes - because apparently we need to react to changes
-  useEffect(() => {
-    if (!hasInitialized) {
-      // Initial fetch on mount
-      fetchTasks(state.filters, state.pagination);
-      setHasInitialized(true);
-    } else {
-      // Subsequent fetches when dependencies change
-      fetchTasks(state.filters, state.pagination);
-    }
-  }, [state.filters, state.pagination.page, state.pagination.limit, state.pagination, state.sortBy, state.sortOrder, fetchTasks, hasInitialized]);
+    // Fetch tasks when filters, pagination, or sorting changes - because apparently we need to react to changes
+    useEffect(() => {
+      if (!hasInitialized) {
+        // Initial fetch on mount
+        fetchTasks(state.filters, stablePagination);
+        setHasInitialized(true);
+      } else {
+        // Subsequent fetches when dependencies change
+        fetchTasks(state.filters, stablePagination);
+      }
+    }, [state.filters, stablePagination, state.sortBy, state.sortOrder, fetchTasks, hasInitialized]);
+  
 
   // Context value - because apparently we need to provide something
   const value = {
