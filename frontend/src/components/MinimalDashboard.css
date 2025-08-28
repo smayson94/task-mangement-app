@@ -127,6 +127,9 @@
   flex-wrap: wrap;
   gap: 0.75rem;
   align-items: stretch;
+  min-height: 50vh;
+  /* When inside the grid container, span full width above content */
+  grid-column: 1 / -1;
 }
 
 .stat-card {
@@ -137,10 +140,22 @@
   border: 1px solid #f3f4f6;
   display: flex;
   align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
   gap: 0.75rem;
   transition: all 0.2s ease;
   min-height: 72px;
   flex: 1 1 180px;
+}
+
+/* Desktop: horizontal stat cards */
+@media (min-width: 769px) {
+  .stat-card {
+    flex-direction: row;
+    text-align: left;
+    justify-content: flex-start;
+  }
 }
 
 .stat-card:hover {
@@ -202,6 +217,9 @@
   padding: 2rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   border: 1px solid #f3f4f6;
+  /* Span across content and sidebar for full width */
+  grid-column: 1 / -1;
+  width: 100%;
 }
 
 .section-header {

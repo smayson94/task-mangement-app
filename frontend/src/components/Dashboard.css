@@ -25,22 +25,24 @@
 
 /* Stats grid - because apparently we need to show statistics */
 .stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 0.75rem;
   margin-bottom: 3rem;
+  align-items: stretch;
 }
 
 .stat-card {
   background: white;
   border-radius: 16px;
-  padding: 1rem 1.5rem;
+  padding: 0.75rem 1rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.75rem;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  min-height: 80px;
+  min-height: 72px;
+  flex: 1 1 180px;
 }
 
 .stat-card:hover {
@@ -49,9 +51,9 @@
 }
 
 .stat-icon {
-  font-size: 2rem;
-  width: 50px;
-  height: 50px;
+  font-size: 1.5rem;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -71,7 +73,7 @@
 }
 
 .stat-number {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: #2c3e50;
   margin: 0;
