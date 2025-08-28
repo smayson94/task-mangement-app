@@ -113,6 +113,10 @@
   max-width: 1400px;
   margin: 0 auto;
 }
+.dashboard-main {
+  grid-column: 1 / -1;
+  width: 100%;
+}
 
 /* Main Content */
 .main-content {

@@ -40,7 +40,7 @@ const Header = () => {
         <div className="header-brand">
           <Link to="/" className="header-logo">
             <span className="header-icon">✅</span>
-            <h1 className="header-title">TaskMaster</h1>
+            <h1 className="header-title">Go Nimbly</h1>
           </Link>
         </div>
 
