@@ -187,7 +187,7 @@ export const TaskProvider = ({ children }) => {
       queryParams.append('sortBy', state.sortBy);
       queryParams.append('sortOrder', state.sortOrder);
       
-      const endpoint = `/tasks?${queryParams.toString()}`;
+      const endpoint = `/api/tasks?${queryParams.toString()}`;
       const result = await apiCall('GET', endpoint);
       
       dispatch({ type: TASK_ACTIONS.SET_TASKS, payload: result });
@@ -201,7 +201,7 @@ export const TaskProvider = ({ children }) => {
   // Create new task - because apparently we need to add things
   const createTask = async (taskData) => {
     try {
-      const newTask = await apiCall('POST', '/tasks', taskData);
+      const newTask = await apiCall('POST', '/api/tasks', taskData);
       dispatch({ type: TASK_ACTIONS.ADD_TASK, payload: newTask });
       toast.success('Task created successfully');
       return newTask;
@@ -215,7 +215,7 @@ export const TaskProvider = ({ children }) => {
   // Update existing task - because apparently we need to change things
   const updateTask = async (id, updateData) => {
     try {
-      const updatedTask = await apiCall('PUT', `/tasks/${id}`, updateData);
+      const updatedTask = await apiCall('PUT', `/api/tasks/${id}`, updateData);
       dispatch({ type: TASK_ACTIONS.UPDATE_TASK, payload: updatedTask });
       toast.success('Task updated successfully');
       return updatedTask;
@@ -229,7 +229,7 @@ export const TaskProvider = ({ children }) => {
   // Delete task - because apparently we need to remove things
   const deleteTask = async (id) => {
     try {
-      await apiCall('DELETE', `/tasks/${id}`);
+      await apiCall('DELETE', `/api/tasks/${id}`);
       dispatch({ type: TASK_ACTIONS.DELETE_TASK, payload: id });
       toast.success('Task deleted successfully');
     } catch (error) {
@@ -242,7 +242,7 @@ export const TaskProvider = ({ children }) => {
   // Get task by ID - because apparently we need to find specific things
   const getTaskById = async (id) => {
     try {
-      const task = await apiCall('GET', `/tasks/${id}`);
+      const task = await apiCall('GET', `/api/tasks/${id}`);
       return task;
     } catch (error) {
       console.error('Error fetching task:', error);
