@@ -271,7 +271,6 @@ export const TaskProvider = ({ children }) => {
   const clearError = () => {
     dispatch({ type: TASK_ACTIONS.CLEAR_ERROR });
   };
-
   // Fetch tasks when filters, pagination, or sorting changes - because apparently we need to react to changes
   useEffect(() => {
     if (!hasInitialized) {
@@ -282,7 +281,7 @@ export const TaskProvider = ({ children }) => {
       // Subsequent fetches when dependencies change
       fetchTasks(state.filters, state.pagination);
     }
-  }, [state.filters, state.pagination, state.sortBy, state.sortOrder, fetchTasks, hasInitialized]);
+  }, [state.filters, state.pagination.page, state.pagination.limit, state.sortBy, state.sortOrder, fetchTasks, hasInitialized]);
 
   // Context value - because apparently we need to provide something
   const value = {
