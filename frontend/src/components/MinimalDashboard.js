@@ -111,8 +111,8 @@ const MinimalDashboard = () => {
         transition={{ duration: 0.6 }}
       >
         <div className="header-content">
-          <h1>Task Dashboard</h1>
-          <p>Manage your tasks efficiently</p>
+          <h1>Go Nimbly Task Manager</h1>
+          <p>Manage your tasks efficiently and stay organized</p>
         </div>
         <div className="header-actions">
           <motion.button

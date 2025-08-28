@@ -124,20 +124,23 @@
 /* Stats Grid */
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.75rem;
+  align-items: start;
+  grid-auto-rows: minmax(0, auto);
 }
 
 .stat-card {
   background: white;
-  border-radius: 16px;
-  padding: 1.5rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-radius: 14px;
+  padding: 0.75rem 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   border: 1px solid #f3f4f6;
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.75rem;
   transition: all 0.2s ease;
+  min-height: 72px;
 }
 
 .stat-card:hover {
@@ -146,13 +149,14 @@
 }
 
 .stat-icon {
-  font-size: 2rem;
-  width: 60px;
-  height: 60px;
+  font-size: 1.25rem;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 16px;
+  border-radius: 12px;
+  flex-shrink: 0;
 }
 
 .stat-card.total .stat-icon {
@@ -185,7 +189,7 @@
 }
 
 .stat-number {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 800;
   color: #111827;
   margin: 0;
@@ -236,7 +240,7 @@
 .task-card {
   background: #fafafa;
   border-radius: 16px;
-  padding: 1.5rem;
+  padding: 1rem;
   border: 1px solid #f3f4f6;
   transition: all 0.2s ease;
   cursor: pointer;
@@ -310,8 +314,8 @@
 .task-description {
   color: #6b7280;
   font-size: 0.9rem;
-  line-height: 1.5;
-  margin-bottom: 1.5rem;
+  line-height: 1.4;
+  margin-bottom: 1rem;
 }
 
 .task-footer {
