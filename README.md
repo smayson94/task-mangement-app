@@ -93,6 +93,60 @@ task-management-app/
 - **npm** or **yarn** package manager
 - **Git** for version control
 
+## 🚀 Deployment
+
+### Railway Deployment (Recommended)
+
+This application is configured for easy deployment on Railway. Follow these steps:
+
+#### 1. Prepare for Deployment
+```bash
+# Run the deployment script
+chmod +x deploy.sh
+./deploy.sh
+```
+
+#### 2. Deploy Backend to Railway
+1. Go to [Railway.app](https://railway.app) and sign up
+2. Create a new project and select "Deploy from GitHub repo"
+3. Choose your repository
+4. Configure build settings:
+   - **Root Directory**: Leave empty
+   - **Build Command**: `cd backend && npm install`
+   - **Start Command**: `cd backend && npm start`
+5. Set environment variables:
+   - `NODE_ENV=production`
+   - `PORT=3000` (Railway will override this)
+
+#### 3. Deploy Frontend to Netlify (Recommended)
+1. Go to [Netlify.com](https://netlify.com) and sign up
+2. Build your frontend: `cd frontend && npm run build`
+3. Drag and drop the `build` folder to Netlify
+4. Set environment variable: `REACT_APP_API_URL=https://your-railway-app-name.railway.app`
+
+#### 4. Update CORS Settings
+Update the CORS origins in `backend/server.js` with your actual domains:
+```javascript
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    'https://your-netlify-app.netlify.app',
+    'https://your-railway-app-name.railway.app'
+  ],
+  credentials: true
+}));
+```
+
+### Alternative: All-in-One Railway Deployment
+You can also deploy both frontend and backend on Railway:
+1. Deploy backend as a service
+2. Deploy frontend as a static site service
+3. Use Railway's built-in domain
+
+### Environment Variables
+- `REACT_APP_API_URL`: Your Railway backend URL
+- `NODE_ENV`: Set to 'production' for production builds
+
 ### Installation
 
 1. **Clone the repository**

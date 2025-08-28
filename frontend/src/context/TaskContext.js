@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useReducer, useEffect, useCallback, useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import API_BASE_URL from '../config/api';
 
 // Create context - because apparently we need to share state
 const TaskContext = createContext();
@@ -129,8 +130,7 @@ export const TaskProvider = ({ children }) => {
   const [state, dispatch] = useReducer(taskReducer, initialState);
   const [hasInitialized, setHasInitialized] = useState(false);
 
-  // API base URL - because apparently we need to know where to send requests
-  const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+
 
   // Helper function to make API calls - because apparently we need to handle HTTP requests
   const apiCall = async (method, endpoint, data = null) => {

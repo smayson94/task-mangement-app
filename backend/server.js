@@ -12,7 +12,15 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware setup - because security and logging are totally optional, right?
 app.use(helmet()); // Security headers because we're not savages
-app.use(cors()); // CORS because cross-origin requests are a thing
+// CORS configuration for production deployment
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    'https://your-netlify-app.netlify.app', // Replace with your actual Netlify domain
+    'https://your-railway-app-name.railway.app' // Replace with your actual Railway domain
+  ],
+  credentials: true
+}));
 app.use(morgan('combined')); // Logging because debugging without logs is like driving blindfolded
 app.use(express.json({ limit: '10mb' })); // JSON parsing with size limit because apparently some people send entire novels
 app.use(express.urlencoded({ extended: true })); // URL encoding because form data exists
@@ -20,6 +28,16 @@ app.use(express.urlencoded({ extended: true })); // URL encoding because form da
 // Health check endpoint - because monitoring is for people who care about their applications
 app.get('/health', (req, res) => {
   res.status(200).json({ status: 'OK', timestamp: new Date().toISOString() });
+});
+
+// Railway health check endpoint (also accessible at root for easier monitoring)
+app.get('/', (req, res) => {
+  res.status(200).json({ 
+    status: 'OK', 
+    message: 'Task Management API is running',
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'development'
+  });
 });
 
 // Mount routes - organized in a way that makes refactoring a nightmare
