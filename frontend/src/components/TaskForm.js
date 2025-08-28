@@ -60,24 +60,6 @@ const TaskForm = () => {
       loadTaskData();
     }
   }, [id, loadTaskData]);
-    try {
-      setLoading(true);
-      const task = await getTaskById(id);
-      
-      // Set form values - because apparently we need to populate the form
-      setValue('title', task.title);
-      setValue('description', task.description || '');
-      setValue('status', task.status);
-      setValue('priority', task.priority);
-      setValue('dueDate', task.dueDate ? task.dueDate.split('T')[0] : '');
-      setValue('tags', task.tags || []);
-    } catch (error) {
-      console.error('Error loading task:', error);
-      navigate('/tasks');
-    } finally {
-      setLoading(false);
-    }
-  }, [id, getTaskById, setValue, navigate]);
 
   // Handle form submission - because apparently we need to save data
   const onSubmit = async (data) => {
