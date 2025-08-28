@@ -123,11 +123,10 @@
 
 /* Stats Grid */
 .stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 0.75rem;
-  align-items: start;
-  grid-auto-rows: minmax(0, auto);
+  align-items: stretch;
 }
 
 .stat-card {
@@ -141,6 +140,7 @@
   gap: 0.75rem;
   transition: all 0.2s ease;
   min-height: 72px;
+  flex: 1 1 180px;
 }
 
 .stat-card:hover {
