@@ -129,6 +129,7 @@ const taskReducer = (state, action) => {
 export const TaskProvider = ({ children }) => {
   const [state, dispatch] = useReducer(taskReducer, initialState);
   const [hasInitialized, setHasInitialized] = useState(false);
+  const lastFetchKeyRef = React.useRef('');
 
   // Stabilize pagination object to prevent infinite loops
   const stablePagination = useMemo(() => ({
@@ -278,14 +279,25 @@ export const TaskProvider = ({ children }) => {
   const clearError = () => {
     dispatch({ type: TASK_ACTIONS.CLEAR_ERROR });
   };
-    // Fetch tasks when filters, pagination, or sorting changes - because apparently we need to react to changes
+    // Fetch tasks when filters, pagination, or sorting changes - guard against unnecessary repeats
     useEffect(() => {
+      const fetchKey = JSON.stringify({
+        filters: state.filters,
+        page: stablePagination.page,
+        limit: stablePagination.limit,
+        sortBy: state.sortBy,
+        sortOrder: state.sortOrder
+      });
+
       if (!hasInitialized) {
-        // Initial fetch on mount
+        lastFetchKeyRef.current = fetchKey;
         fetchTasks(state.filters, stablePagination);
         setHasInitialized(true);
-      } else {
-        // Subsequent fetches when dependencies change
+        return;
+      }
+
+      if (lastFetchKeyRef.current !== fetchKey) {
+        lastFetchKeyRef.current = fetchKey;
         fetchTasks(state.filters, stablePagination);
       }
     }, [state.filters, stablePagination, state.sortBy, state.sortOrder, fetchTasks, hasInitialized]);
