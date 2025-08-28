@@ -44,6 +44,7 @@ const TaskList = () => {
     } else {
       console.log('TaskList: No active context filters, keeping default state');
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Only run on mount to avoid infinite loop
 
   // Apply filters with debounce - because apparently we need to avoid too many API calls
@@ -87,6 +88,7 @@ const TaskList = () => {
     } else {
       console.log('TaskList: Filters unchanged, skipping update');
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [localFilters, updateFilters, isInitialRender]); // Removed 'filters' dependency to prevent infinite loop
 
   // Handle filter changes - because apparently we need to update filters
