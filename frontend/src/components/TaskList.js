@@ -44,7 +44,7 @@ const TaskList = () => {
     } else {
       console.log('TaskList: No active context filters, keeping default state');
     }
-  }, []); // Only run on mount to avoid infinite loop
+  }, [filters]); // Only run on mount to avoid infinite loop
 
   // Apply filters with debounce - because apparently we need to avoid too many API calls
   useEffect(() => {
@@ -87,7 +87,7 @@ const TaskList = () => {
     } else {
       console.log('TaskList: Filters unchanged, skipping update');
     }
-  }, [localFilters, updateFilters, isInitialRender]);
+  }, [localFilters, updateFilters, isInitialRender, filters]);
 
   // Handle filter changes - because apparently we need to update filters
   const handleFilterChange = (key, value) => {

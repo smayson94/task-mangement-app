@@ -11,11 +11,6 @@ const TaskDetail = () => {
   const [loading, setLoading] = useState(true);
   const [deleting, setDeleting] = useState(false);
 
-  // Load task data - because apparently we need to see the task
-  useEffect(() => {
-    loadTask();
-  }, [id, loadTask]);
-
   // Load task from API - because apparently we need to get data
   const loadTask = useCallback(async () => {
     try {
@@ -29,6 +24,11 @@ const TaskDetail = () => {
       setLoading(false);
     }
   }, [id, getTaskById, navigate]);
+
+  // Load task data - because apparently we need to see the task
+  useEffect(() => {
+    loadTask();
+  }, [id, loadTask]);
 
   // Handle task deletion - because apparently we need to remove things
   const handleDelete = async () => {
