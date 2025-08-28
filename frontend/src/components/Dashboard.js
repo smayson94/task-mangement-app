@@ -95,7 +95,7 @@ const Dashboard = () => {
   return (
     <div className="dashboard">
       <div className="dashboard-header">
-        <h1>Welcome to TaskMaster</h1>
+        <h1>Welcome to Go Nimbly Task Manager</h1>
         <p>Manage your tasks efficiently and stay organized</p>
       </div>
 
