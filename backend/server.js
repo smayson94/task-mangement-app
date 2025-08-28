@@ -16,8 +16,8 @@ app.use(helmet()); // Security headers because we're not savages
 app.use(cors({
   origin: [
     'http://localhost:3000',
-    'https://your-netlify-app.netlify.app', // Replace with your actual Netlify domain
-    'https://your-railway-app-name.railway.app' // Replace with your actual Railway domain
+    'https://tranquil-flan-c5c980.netlify.app', // Your actual Netlify domain
+    'https://task-mangement-app-production.up.railway.app' // Your actual Railway domain
   ],
   credentials: true
 }));
