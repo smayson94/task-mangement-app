@@ -112,12 +112,12 @@ chmod +x deploy.sh
 3. Choose your repository
 4. Configure build settings:
    - **Root Directory**: Leave empty
-   - **Build Command**: `cd backend && npm install` (or leave empty - Railway will auto-detect)
-   - **Start Command**: `cd backend && npm start`
+   - **Build Command**: `cd backend && npm install` (Railway will use this from railway.json)
+   - **Start Command**: `cd backend && npm start` (Railway will use this from railway.json)
 5. Set environment variables:
    - `NODE_ENV=production`
    - `PORT=3000` (Railway will override this)
-6. **Important**: Railway will automatically detect this is a Node.js project and install dependencies
+6. **Important**: The railway.json file is already configured with the correct build and start commands
 
 #### 3. Deploy Frontend to Netlify (Recommended)
 1. Go to [Netlify.com](https://netlify.com) and sign up
